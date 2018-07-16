@@ -8,11 +8,11 @@ package cn.leran.currentroad.chapter2;
  */
 public class Thread3 {
     public static void main(String[] args) throws InterruptedException {
-        Thread t1 = new Thread(){
+        Thread t1 = new Thread() {
             @Override
             public void run() {
-                while (true){
-                    if (Thread.currentThread().isInterrupted()){
+                while (true) {
+                    if (Thread.currentThread().isInterrupted()) {
                         System.out.println("interrupted" + "  线程中断了啊！");
                         break;
                     }

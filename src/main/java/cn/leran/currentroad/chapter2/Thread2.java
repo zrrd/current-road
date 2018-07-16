@@ -14,7 +14,7 @@ import java.util.Date;
  */
 public class Thread2 {
 
-    public static class User{
+    public static class User {
         private String name;
 
         public String getName() {
@@ -32,11 +32,11 @@ public class Thread2 {
 
     public static User u = new User("  a");
 
-    public static class ReadThread extends Thread{
+    public static class ReadThread extends Thread {
         @Override
         public void run() {
-            while (true){
-                synchronized (u){
+            while (true) {
+                synchronized (u) {
                     System.out.println(u.getName());
                     Thread.yield();
                 }
@@ -44,29 +44,29 @@ public class Thread2 {
         }
     }
 
-    public static class ChangeThread extends Thread{
+    public static class ChangeThread extends Thread {
 
         /**
-         *  退出线程的标志
+         * 退出线程的标志
          */
         private boolean isRun = true;
 
-        private void stopThread(){
+        private void stopThread() {
             isRun = false;
         }
 
         @Override
         public void run() {
-            while (isRun){
-                synchronized (u){
+            while (isRun) {
+                synchronized (u) {
                     DateFormat format = new SimpleDateFormat("HH:mm:ss");
                     Date date = new Date();
                     //如果时分秒有60
-                    if (StringUtils.contains(format.format(date),"00")){
+                    if (StringUtils.contains(format.format(date), "00")) {
                         System.out.println("修改线程停止了");
                         stopThread();
                     }
-                    u.setName(format.format(date)+"  a");
+                    u.setName(format.format(date) + "  a");
                     Thread.yield();
                 }
             }

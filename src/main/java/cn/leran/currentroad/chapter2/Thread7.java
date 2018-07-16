@@ -7,10 +7,10 @@ package cn.leran.currentroad.chapter2;
  * @date 2018/7/16
  */
 public class Thread7 {
-    public static class DaemonT extends Thread{
+    public static class DaemonT extends Thread {
         @Override
         public void run() {
-            while (true){
+            while (true) {
                 System.out.println("i m alive");
                 try {
                     Thread.sleep(1000);

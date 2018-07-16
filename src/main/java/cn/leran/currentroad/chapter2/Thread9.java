@@ -11,13 +11,13 @@ public class Thread9 implements Runnable {
     static volatile int i = 0;
 
     //public static void add(){
-    public synchronized static void add(){
+    public synchronized static void add() {
         i++;
     }
 
     @Override
     public void run() {
-        for (int j=0;j<100000;j++){
+        for (int j = 0; j < 100000; j++) {
             add();
         }
     }

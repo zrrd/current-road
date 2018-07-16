@@ -3,15 +3,17 @@ package cn.leran.currentroad.chapter2;
 /**
  * join 和 yield
  * Thread.join() 线程的等待 和 Thread.yield()让出当前cpu
+ *
  * @author shaoyijiong
  * @date 2018/7/16
  */
 public class Thread5 {
     private volatile static int i = 0;
-    public static class AddThread extends Thread{
+
+    public static class AddThread extends Thread {
         @Override
         public void run() {
-            for (i=0;i<100000;i++);
+            for (i = 0; i < 100000; i++) ;
         }
     }
 
