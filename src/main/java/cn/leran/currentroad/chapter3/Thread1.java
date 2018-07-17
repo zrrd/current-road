@@ -15,6 +15,7 @@ public class Thread1 implements Runnable {
     @Override
     public void run() {
         for (int j = 0; j < 100000; j++) {
+            //lock.lockInterruptibly();
             lock.lock();
             //lock.lock(); 可以加多次锁
             try {
