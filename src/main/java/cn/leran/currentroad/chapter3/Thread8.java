@@ -7,7 +7,7 @@ import java.util.concurrent.ForkJoinTask;
 import java.util.concurrent.RecursiveTask;
 
 /**
- * Fork/Join框架
+ * Fork/Join框架.
  *
  * @author shaoyijiong
  * @date 2018/7/17
@@ -15,7 +15,7 @@ import java.util.concurrent.RecursiveTask;
 public class Thread8 extends RecursiveTask<Long> {
 
   /**
-   * 分解任务的规模
+   * 分解任务的规模.
    */
   private static final int THRESHOLD = 10000;
   private long start;

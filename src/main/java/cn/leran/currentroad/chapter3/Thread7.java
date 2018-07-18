@@ -8,7 +8,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 自定义的线程池
+ * 自定义的线程池.
  *
  * @author shaoyijiong
  * @date 2018/7/17
@@ -18,8 +18,8 @@ public class Thread7 {
   public static void main(String[] args) {
 
     ThreadFactory nameThreadFactory = new ThreadFactoryBuilder().setNameFormat("pool-%d").build();
-    ExecutorService pool =new ThreadPoolExecutor(5,200,0L, TimeUnit.MILLISECONDS,
+    ExecutorService pool = new ThreadPoolExecutor(5, 200, 0L, TimeUnit.MILLISECONDS,
         new LinkedBlockingDeque<>(1024),
-        nameThreadFactory,new ThreadPoolExecutor.AbortPolicy());
+        nameThreadFactory, new ThreadPoolExecutor.AbortPolicy());
   }
 }

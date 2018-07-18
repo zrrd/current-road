@@ -7,7 +7,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * CountDownLatch 计数器
+ * CountDownLatch 计数器.
  *
  * @author shaoyijiong
  * @date 2018/7/17
@@ -16,6 +16,7 @@ public class Thread5 implements Runnable {
 
   static final CountDownLatch end = new CountDownLatch(10);
   static final Thread5 demo = new Thread5();
+
   @Override
   public void run() {
     try {
@@ -31,7 +32,7 @@ public class Thread5 implements Runnable {
 
   public static void main(String[] args) throws InterruptedException {
     ExecutorService executorService = Executors.newFixedThreadPool(10);
-    for (int i = 0;i<10;i++) {
+    for (int i = 0; i < 10; i++) {
       executorService.submit(demo);
     }
     //等待检查

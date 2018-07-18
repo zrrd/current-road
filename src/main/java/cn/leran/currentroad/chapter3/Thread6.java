@@ -3,7 +3,7 @@ package cn.leran.currentroad.chapter3;
 import java.util.concurrent.locks.LockSupport;
 
 /**
- * lockSupport 线程阻塞
+ * lockSupport 线程阻塞.
  *
  * @author shaoyijiong
  * @date 2018/7/17
@@ -26,7 +26,7 @@ public class Thread6 {
         System.out.println("in " + getName());
         //阻塞当前线程
         LockSupport.park();
-        System.out.println(getName()+"线程结束了");
+        System.out.println(getName() + "线程结束了");
       }
     }
   }
