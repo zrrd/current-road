@@ -21,5 +21,6 @@ public class Thread7 {
     ExecutorService pool = new ThreadPoolExecutor(5, 200, 0L, TimeUnit.MILLISECONDS,
         new LinkedBlockingDeque<>(1024),
         nameThreadFactory, new ThreadPoolExecutor.AbortPolicy());
+    pool.shutdown();
   }
 }

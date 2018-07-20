@@ -29,7 +29,7 @@ public class CurrentroadApplicationTests {
     String date = "2018-2-28";
     boolean success;
     try {
-      Date date1 = DateUtils.parseDateStrictly(date,"yyyy-MM-dd", "yyyy/MM/dd");
+      DateUtils.parseDateStrictly(date,"yyyy-MM-dd", "yyyy/MM/dd");
       System.out.println(true);
     } catch (ParseException e) {
       System.out.println(false);
