@@ -19,23 +19,16 @@ public class Client {
   private static final Integer PORT = 2333;
 
   public static void main(String[] args) throws IOException {
-    Socket client = null;
-    PrintWriter writer = null;
-    BufferedReader reader = null;
-    try {
-      client = new Socket();
+    try (Socket client = new Socket();
+        PrintWriter writer = new PrintWriter(client.getOutputStream(), true);
+        BufferedReader reader = new BufferedReader(
+            new InputStreamReader(client.getInputStream()))) {
       client.connect(new InetSocketAddress("localhost", 2333));
-      writer = new PrintWriter(client.getOutputStream(), true);
       writer.println("Hello!");
       writer.flush();
-      reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
       System.out.println("from server:" + reader.readLine());
     } catch (IOException e) {
       System.out.println(e);
-    } finally {
-      client.close();
-      writer.close();
-      reader.close();
     }
   }
 }
