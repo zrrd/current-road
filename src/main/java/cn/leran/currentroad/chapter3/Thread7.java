@@ -28,6 +28,7 @@ public class Thread7 {
     ExecutorService pool = new ThreadPoolExecutor(5, 200, 0L, TimeUnit.MILLISECONDS,
         new LinkedBlockingDeque<>(1024),
         nameThreadFactory, new ThreadPoolExecutor.AbortPolicy());
+    //Executor不会停止 需要shutdown来显式停止等待当前任务完成  shutdownNow会终止所有正在执行的任务并立即关闭
     pool.shutdown();
 
     //可变线程池 复用空闲线程 没有可用线程的话新建线程
