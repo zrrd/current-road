@@ -1,7 +1,6 @@
 package cn.leran.currentroad.chapter5.future;
 
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.FutureTask;
@@ -15,9 +14,9 @@ import java.util.concurrent.FutureTask;
 public class FutureMain {
 
   public static void main(String[] args) throws InterruptedException, ExecutionException {
-    //构造函数 要一个实现callable的类 注意这里的泛型
+    //构造函数 要一个实现callable的类 注意这里的泛型是返回类型  构造函数式需要一个实现Callable的类
     FutureTask<String> futureTask = new FutureTask<>(new RealData("a"));
-    ExecutorService executorService = Executors.newFixedThreadPool(1);
+    ExecutorService executorService = Executors.newSingleThreadExecutor();
     executorService.execute(futureTask);
     System.out.println("请求完毕");
     //模拟请求干别的事

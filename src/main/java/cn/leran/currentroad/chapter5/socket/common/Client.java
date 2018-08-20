@@ -18,12 +18,18 @@ public class Client {
   private static final String HOST = "127.0.0.1";
   private static final Integer PORT = 2333;
 
+  /**
+   * 启动客户端.
+   */
   public static void main(String[] args) throws IOException {
+    //这里使用了try-with-resource
     try (Socket client = new Socket();
+        //字符流输出
         PrintWriter writer = new PrintWriter(client.getOutputStream(), true);
+        //来自客户端的字符流
         BufferedReader reader = new BufferedReader(
             new InputStreamReader(client.getInputStream()))) {
-      client.connect(new InetSocketAddress("localhost", 2333));
+      client.connect(new InetSocketAddress(HOST, PORT));
       writer.println("Hello!");
       writer.flush();
       System.out.println("from server:" + reader.readLine());

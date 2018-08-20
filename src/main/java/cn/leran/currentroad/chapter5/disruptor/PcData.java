@@ -9,7 +9,7 @@ import lombok.Data;
  * @date 2018/7/20
  */
 @Data
-public class PcData {
+class PcData {
 
   private long value;
 }

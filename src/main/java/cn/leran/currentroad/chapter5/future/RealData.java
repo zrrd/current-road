@@ -12,10 +12,15 @@ public class RealData implements Callable<String> {
 
   private String para;
 
-  public RealData(String para) {
+  RealData(String para) {
     this.para = para;
   }
 
+  /**
+   * 跟runnable的run很类似 多了一个返回
+   *
+   * @return 返回
+   */
   @Override
   public String call() throws Exception {
     StringBuilder sb = new StringBuilder();

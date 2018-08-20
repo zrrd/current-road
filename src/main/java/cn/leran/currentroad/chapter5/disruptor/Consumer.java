@@ -12,12 +12,11 @@ public class Consumer implements WorkHandler<PcData> {
 
   /**
    * 数据读取由disruptor进行封装,onEvent为框架的回调.
-   * 
+   *
    * @param event 回调的数据
-   * @throws Exception 异常
    */
   @Override
-  public void onEvent(PcData event) throws Exception {
+  public void onEvent(PcData event) {
     System.out.println(
         Thread.currentThread().getName() + ":Event:--" + event.getValue()
             + "--");

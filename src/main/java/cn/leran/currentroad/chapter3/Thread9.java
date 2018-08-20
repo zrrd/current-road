@@ -29,20 +29,20 @@ public class Thread9 {
   /**
    * 高效的读写队列 ConcurrentLinkedDeque, 多消费者的场景.
    */
-  Queue queue1 = new ConcurrentLinkedDeque();
+  ConcurrentLinkedDeque queue1 = new ConcurrentLinkedDeque();
 
   /**
    * 高效读取,读取远远大于写入的场景.
    */
-  List list2 = new CopyOnWriteArrayList();
+  CopyOnWriteArrayList list2 = new CopyOnWriteArrayList();
 
   /**
    * 数据共享通道,单消费者的场景.
    */
-  Queue queue2 = new LinkedBlockingDeque();
-  Queue queue3 = new ArrayBlockingQueue(10);
+  LinkedBlockingDeque queue2 = new LinkedBlockingDeque();
+  ArrayBlockingQueue queue3 = new ArrayBlockingQueue(10);
   /**
    * 跳表,快速查找.
    */
-  Map map2 = new ConcurrentSkipListMap();
+  ConcurrentSkipListMap map2 = new ConcurrentSkipListMap();
 }

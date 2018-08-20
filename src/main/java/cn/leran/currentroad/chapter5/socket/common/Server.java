@@ -17,26 +17,25 @@ import java.util.concurrent.Executors;
  */
 public class Server {
 
-  private static final String port = "2333";
+  private static final int PORT = 2333;
   private static ExecutorService executorService = Executors.newCachedThreadPool();
 
   static class HandleMsg implements Runnable {
 
     Socket clientSocket;
 
-    public HandleMsg(Socket clientSocket) {
+    HandleMsg(Socket clientSocket) {
       this.clientSocket = clientSocket;
     }
 
     @Override
     public void run() {
-      BufferedReader is = null;
-      PrintWriter os = null;
       //这里的is 和 os 类的都实现类AutoCloseable接口,不需要再finally里关闭连接了
-      try {
-        is = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-        os = new PrintWriter(clientSocket.getOutputStream(), true);
-        String inputLine = null;
+      try (BufferedReader is = new BufferedReader(
+          new InputStreamReader(clientSocket.getInputStream()));
+          PrintWriter os = new PrintWriter(clientSocket.getOutputStream(), true)
+      ) {
+        String inputLine;
         long b = System.currentTimeMillis();
         while ((inputLine = is.readLine()) != null) {
           os.println(inputLine);
@@ -49,10 +48,13 @@ public class Server {
     }
   }
 
+  /**
+   * 启动服务器.
+   */
   public static void main(String[] args) throws IOException {
-    ServerSocket serverSocket = null;
-    Socket clientSocket = null;
-    serverSocket = new ServerSocket(2333);
+    ServerSocket serverSocket;
+    Socket clientSocket;
+    serverSocket = new ServerSocket(PORT);
     while (true) {
       //侦听并接受到此套接字的连接.
       clientSocket = serverSocket.accept();

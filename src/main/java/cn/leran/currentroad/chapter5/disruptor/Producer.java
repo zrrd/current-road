@@ -9,14 +9,14 @@ import java.nio.ByteBuffer;
  * @author shaoyijiong
  * @date 2018/7/20
  */
-public class Producer {
+class Producer {
 
   /**
    * 环形缓冲区.
    */
   private final RingBuffer<PcData> ringBuffer;
 
-  public Producer(RingBuffer<PcData> ringBuffer) {
+  Producer(RingBuffer<PcData> ringBuffer) {
     this.ringBuffer = ringBuffer;
   }
 
@@ -25,7 +25,7 @@ public class Producer {
    *
    * @param bb 通过ByteBuffer讲数据放入数据缓冲区
    */
-  public void pushDate(ByteBuffer bb) {
+  void pushDate(ByteBuffer bb) {
     //通过next得到下一个可用序列号,通过序列号得到下一个空闲可用的PcDate
     //讲这个PcDate数据设置为期望值
     long sequence = ringBuffer.next();

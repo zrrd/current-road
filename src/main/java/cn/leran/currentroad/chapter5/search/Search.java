@@ -8,6 +8,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.atomic.AtomicInteger;
+import lombok.Data;
 
 /**
  * 并行查找.
@@ -15,15 +16,16 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @author shaoyijiong
  * @date 2018/7/20
  */
+@Data
 public class Search {
 
-  static int[] arr;
-  static ExecutorService pool = Executors.newCachedThreadPool();
-  static final int THREAD_NUM = 2;
-  static AtomicInteger result = new AtomicInteger();
+  private static int[] arr;
+  private static ExecutorService pool = Executors.newCachedThreadPool();
+  private static final int THREAD_NUM = 2;
+  private static AtomicInteger result = new AtomicInteger();
 
-  public static int search(int searchValue, int beginPos, int endPos) {
-    int i = 0;
+  private static int search(int searchValue, int beginPos, int endPos) {
+    int i;
     for (i = beginPos; i < endPos; i++) {
       //其他线程已经找到了
       if (result.get() >= 0) {
@@ -44,16 +46,15 @@ public class Search {
     int end;
     int searchValue;
 
-    public SearchTask(int begin, int end, int searchValue) {
+    SearchTask(int begin, int end, int searchValue) {
       this.begin = begin;
       this.end = end;
       this.searchValue = searchValue;
     }
 
     @Override
-    public Integer call() throws Exception {
-      int re = search(searchValue, begin, end);
-      return re;
+    public Integer call() {
+      return search(searchValue, begin, end);
     }
   }
 

@@ -8,7 +8,7 @@ import com.lmax.disruptor.EventFactory;
  * @author shaoyijiong
  * @date 2018/7/20
  */
-public class PCDataFactory implements EventFactory<PcData> {
+public class PcDataFactory implements EventFactory<PcData> {
 
   @Override
   public PcData newInstance() {

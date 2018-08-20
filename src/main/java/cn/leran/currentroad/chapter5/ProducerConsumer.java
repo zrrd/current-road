@@ -19,13 +19,21 @@ public class ProducerConsumer {
    */
   private static BlockingQueue<String> queue = new LinkedBlockingDeque<>(1000);
 
+  /**
+   * 生产者.
+   */
   public static class Producer implements Runnable {
 
+    /**
+     * 当前线程的随机数,用于生成随机.
+     */
     private static ThreadLocalRandom random = ThreadLocalRandom.current();
-
+    /**
+     * 阻塞队列,用于存放产品和消费产品(和生产者的阻塞队列必须为同一个).
+     */
     private BlockingQueue<String> queue;
 
-    public Producer(BlockingQueue queue) {
+    Producer(BlockingQueue<String> queue) {
       this.queue = queue;
     }
 
@@ -35,6 +43,7 @@ public class ProducerConsumer {
         try {
           System.out.println(Thread.currentThread().getName() + "正在制作产品");
           Thread.sleep(3000);
+          //塞
           queue.put("-------产品" + Thread.currentThread().getName() + "----" + random.nextInt(100));
           System.out.println("产品放到队列中去了");
         } catch (InterruptedException e) {
@@ -48,7 +57,10 @@ public class ProducerConsumer {
 
     private BlockingQueue<String> queue;
 
-    public Consumer(BlockingQueue queue) {
+    /**
+     * 阻塞队列,用于存放产品和消费产品(和消费者的阻塞队列必须为同一个).
+     */
+    Consumer(BlockingQueue<String> queue) {
       this.queue = queue;
     }
 
@@ -56,6 +68,7 @@ public class ProducerConsumer {
     public void run() {
       while (true) {
         try {
+          //拿
           String product = queue.take();
           System.out.println(Thread.currentThread() + "正在消费产品" + product);
           Thread.sleep(1500);
