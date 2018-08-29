@@ -3,14 +3,14 @@ package cn.leran.currentroad.chapter3;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- * ReentrantLock 重入锁
+ * ReentrantLock 重入锁.
  *
  * @author shaoyijiong
  * @date 2018/7/16
  */
 public class Thread1 implements Runnable {
 
-  public static ReentrantLock lock = new ReentrantLock();
+  private static ReentrantLock lock = new ReentrantLock();
   public static int i = 0;
 
   @Override

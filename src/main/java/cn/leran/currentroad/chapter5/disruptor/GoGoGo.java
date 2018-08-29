@@ -18,7 +18,7 @@ public class GoGoGo {
 
   public static void main(String[] args) throws InterruptedException {
     ExecutorService executorService = Executors.newCachedThreadPool();
-    PCDataFactory factory = new PCDataFactory();
+    PcDataFactory factory = new PcDataFactory();
     //设置缓冲区大小 2的整数次幂
     int bufferSize = 1024;
     Disruptor<PcData> disruptor = new Disruptor<>(factory, bufferSize, executorService,

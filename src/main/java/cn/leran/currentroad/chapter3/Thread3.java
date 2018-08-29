@@ -4,16 +4,20 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- * condition
+ * condition.
  *
  * @author shaoyijiong
  * @date 2018/7/16
  */
 public class Thread3 implements Runnable {
 
-  public static ReentrantLock lock = new ReentrantLock();
-  //获得当前锁绑定的 condition
-  public static Condition condition = lock.newCondition();
+  private static ReentrantLock lock = new ReentrantLock();
+  /**
+   * 获得当前锁绑定的 condition Condition 则是将 wait、notify、notify、notifyAll等操作转化为响应的对象,
+   * 将复杂而晦涩的同步操作转变为直观可控的对象行为.
+   */
+
+  private static Condition condition = lock.newCondition();
 
   @Override
   public void run() {
