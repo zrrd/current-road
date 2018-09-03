@@ -14,67 +14,69 @@ import java.util.Date;
  */
 public class Thread2 {
 
-    public static class User {
-        private String name;
+  public static class User {
 
-        public String getName() {
-            return name;
-        }
+    private String name;
 
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public User(String name) {
-            this.name = name;
-        }
+    public String getName() {
+      return name;
     }
 
-    public static User u = new User("  a");
-
-    public static class ReadThread extends Thread {
-        @Override
-        public void run() {
-            while (true) {
-                synchronized (u) {
-                    System.out.println(u.getName());
-                    Thread.yield();
-                }
-            }
-        }
+    public void setName(String name) {
+      this.name = name;
     }
 
-    public static class ChangeThread extends Thread {
+    public User(String name) {
+      this.name = name;
+    }
+  }
 
-        /**
-         * 退出线程的标志
-         */
-        private boolean isRun = true;
+  public static User u = new User("  a");
 
-        private void stopThread() {
-            isRun = false;
+  public static class ReadThread extends Thread {
+
+    @Override
+    public void run() {
+      while (true) {
+        synchronized (u) {
+          System.out.println(u.getName());
+          Thread.yield();
         }
+      }
+    }
+  }
 
-        @Override
-        public void run() {
-            while (isRun) {
-                synchronized (u) {
-                    DateFormat format = new SimpleDateFormat("HH:mm:ss");
-                    Date date = new Date();
-                    //如果时分秒有60
-                    if (StringUtils.contains(format.format(date), "00")) {
-                        System.out.println("修改线程停止了");
-                        stopThread();
-                    }
-                    u.setName(format.format(date) + "  a");
-                    Thread.yield();
-                }
-            }
-        }
+  public static class ChangeThread extends Thread {
+
+    /**
+     * 退出线程的标志
+     */
+    private boolean isRun = true;
+
+    private void stopThread() {
+      isRun = false;
     }
 
-    public static void main(String[] args) {
-        new ReadThread().start();
-        new ChangeThread().start();
+    @Override
+    public void run() {
+      while (isRun) {
+        synchronized (u) {
+          DateFormat format = new SimpleDateFormat("HH:mm:ss");
+          Date date = new Date();
+          //如果时分秒有60
+          if (StringUtils.contains(format.format(date), "00")) {
+            System.out.println("修改线程停止了");
+            stopThread();
+          }
+          u.setName(format.format(date) + "  a");
+          Thread.yield();
+        }
+      }
     }
+  }
+
+  public static void main(String[] args) {
+    new ReadThread().start();
+    new ChangeThread().start();
+  }
 }

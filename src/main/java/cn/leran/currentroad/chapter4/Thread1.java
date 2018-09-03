@@ -3,7 +3,6 @@ package cn.leran.currentroad.chapter4;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -19,11 +18,11 @@ public class Thread1 {
   /**
    * 通过ThreadLocal,为每个线程分配一个SimpleDateFormat.
    */
-  static ThreadLocal<SimpleDateFormat> t1 = new ThreadLocal<>();
+  private static ThreadLocal<SimpleDateFormat> t1 = new ThreadLocal<>();
 
   public static class ParseDate implements Runnable {
 
-    int ss = 0;
+    int ss;
 
     ParseDate(int i) {
       this.ss = i;
@@ -40,6 +39,7 @@ public class Thread1 {
           t1.set(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
         }
         Date date = t1.get().parse("2018-03-29 19:29:" + ss % 60);
+        t1.remove();
         System.out.println(ss + ":" + date);
       } catch (ParseException e) {
         e.printStackTrace();

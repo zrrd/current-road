@@ -8,17 +8,17 @@ package cn.leran.currentroad.chapter2;
  */
 public class Thread4 {
 
-  private final static Object object = new Object();
+  private static final Object OBJECT = new Object();
 
   public static class T1 extends Thread {
 
     @Override
     public void run() {
-      synchronized (object) {
+      synchronized (OBJECT) {
         System.out.println(System.currentTimeMillis() + ": T1 start!");
         try {
           System.out.println(System.currentTimeMillis() + ": T1 wait!");
-          object.wait();
+          OBJECT.wait();
         } catch (InterruptedException e) {
           e.printStackTrace();
         }
@@ -31,9 +31,9 @@ public class Thread4 {
 
     @Override
     public void run() {
-      synchronized (object) {
+      synchronized (OBJECT) {
         System.out.println(System.currentTimeMillis() + ": T2 start! notify one thread");
-        object.notify();
+        OBJECT.notify();
         System.out.println(System.currentTimeMillis() + ": T2 end!");
         try {
           Thread.sleep(2000);
