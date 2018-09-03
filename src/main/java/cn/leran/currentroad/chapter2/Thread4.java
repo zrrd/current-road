@@ -17,6 +17,7 @@ public class Thread4 {
       synchronized (OBJECT) {
         System.out.println(System.currentTimeMillis() + ": T1 start!");
         try {
+          //释放锁资源 让出cpu 今日等待状态
           System.out.println(System.currentTimeMillis() + ": T1 wait!");
           OBJECT.wait();
         } catch (InterruptedException e) {
@@ -33,6 +34,8 @@ public class Thread4 {
     public void run() {
       synchronized (OBJECT) {
         System.out.println(System.currentTimeMillis() + ": T2 start! notify one thread");
+        //唤醒一个正在等待状态的线程而不会立即释放锁，锁的释放要看代码块的具体执行情况。
+        //所以在编程中，尽量在使用了notify/notifyAll() 后立即退出临界区，以唤醒其他线程
         OBJECT.notify();
         System.out.println(System.currentTimeMillis() + ": T2 end!");
         try {
