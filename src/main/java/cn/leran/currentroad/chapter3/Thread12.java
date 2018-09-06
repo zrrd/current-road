@@ -6,7 +6,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * 通过CyclicBarrier来实现碰碰车等待
+ * 通过CyclicBarrier来实现碰碰车等待.
  *
  * @author 邵益炯
  * @date 2018/9/3
@@ -19,7 +19,7 @@ public class Thread12 {
   private static final int CAR_NUM = 10;
 
   /**
-   * 传入一个runnable参数,每次await后运行
+   * 传入一个runnable参数,每次await后运行.
    */
   private static CyclicBarrier cyclicBarrier = new CyclicBarrier(CAR_NUM, () -> {
     try {
@@ -35,7 +35,7 @@ public class Thread12 {
 
     String carName;
 
-    public WaitingForCar(int num) {
+    WaitingForCar(int num) {
       this.carName = "碰碰车" + num;
     }
 
@@ -49,6 +49,7 @@ public class Thread12 {
           //模拟碰碰车等待客户
           Thread.sleep(num * 1000);
           System.out.println("等待" + num + "秒后," + carName + "有客户");
+          //等待所有碰碰车上都有顾客
           cyclicBarrier.await();
         }
       } catch (Exception e) {
@@ -57,6 +58,9 @@ public class Thread12 {
     }
   }
 
+  /**
+   * 测试下.
+   */
   public static void main(String[] args) {
     ExecutorService pool = Executors.newFixedThreadPool(CAR_NUM);
     for (int i = 1; i < CAR_NUM + 1; i++) {

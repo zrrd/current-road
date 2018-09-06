@@ -53,6 +53,9 @@ public class ProducerConsumer {
     }
   }
 
+  /**
+   * 消费者.
+   */
   public static class Consumer implements Runnable {
 
     private BlockingQueue<String> queue;
@@ -68,7 +71,7 @@ public class ProducerConsumer {
     public void run() {
       while (true) {
         try {
-          //拿
+          //拿  消费者的消费速度大于生产者的生产速度 会导致从队列中的拿这个方法阻塞当前线程
           String product = queue.take();
           System.out.println(Thread.currentThread() + "正在消费产品" + product);
           Thread.sleep(1500);
@@ -79,6 +82,9 @@ public class ProducerConsumer {
     }
   }
 
+  /**
+   * 测试.
+   */
   public static void main(String[] args) {
     ExecutorService executorService = Executors.newCachedThreadPool();
     executorService.execute(new Consumer(queue));
