@@ -44,6 +44,7 @@ public class Test {
     sw.stop();
     System.out.println(count1 + "串行的时间" + sw.getLastTaskTimeMillis());
     sw.start();
+
     //加上parallel 将这个串行的改成并行的
     long count2 = IntStream.range(1, 100000).parallel().filter(new PrimeUntil()::isPrime).count();
     sw.stop();
