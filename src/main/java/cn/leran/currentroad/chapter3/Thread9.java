@@ -41,7 +41,7 @@ public class Thread9 {
   ConcurrentLinkedDeque<String> concurrentLinkedDeque = new ConcurrentLinkedDeque<>();
 
   /**
-   * 高效读取,读取远远大于写入的场景. 修改的时候直接copy数组
+   * 高效读取,读取远远大于写入的场景. 修改的时候直接copy数组  List哦
    */
   CopyOnWriteArrayList<String> copyOnWriteArrayList = new CopyOnWriteArrayList<>();
 

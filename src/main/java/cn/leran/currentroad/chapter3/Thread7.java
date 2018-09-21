@@ -64,6 +64,11 @@ public class Thread7 {
     scheduledExecutorService
         .scheduleWithFixedDelay(() -> System.out.println("hello"), 0, 2, TimeUnit.SECONDS);
     //线程池数量自定义 定期执行
-    Executors.newScheduledThreadPool(10);
+    ScheduledExecutorService scheduledExecutorService1 = Executors.newScheduledThreadPool(10);
+    //10个定时任务同时执行
+    for (int i = 0; i < 10; i++) {
+      scheduledExecutorService1
+          .scheduleWithFixedDelay(() -> System.out.println("hello"), 0, 2, TimeUnit.SECONDS);
+    }
   }
 }
