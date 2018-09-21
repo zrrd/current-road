@@ -61,7 +61,7 @@ public class Thread9 {
   SynchronousQueue<String> synchronousQueue = new SynchronousQueue<>();
 
   /**
-   * 优先级队列(无界).
+   * 优先级队列(无界). 非线程安全的
    */
   PriorityQueue<String> priorityQueue = new PriorityQueue<>();
 
