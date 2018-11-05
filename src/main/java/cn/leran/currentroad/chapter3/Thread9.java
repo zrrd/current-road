@@ -94,6 +94,8 @@ public class Thread9 {
     // merge() 方法可以用于以映射中的现有值来统一新的值。这个方法接受
     //键、需要并入现有元素的新值，以及指定两个值的合并行为的 BiFunction
     map.merge("foo", "boo", (oldVal, newVal) -> newVal + " was " + oldVal);
+
+    //map.search(); 搜索
     map.put("a", "a");
   }
 }

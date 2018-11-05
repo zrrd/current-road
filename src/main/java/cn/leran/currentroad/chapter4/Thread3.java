@@ -32,7 +32,10 @@ public class Thread3 {
     Runnable r = () -> {
       //原子加一
       atomicInteger.getAndIncrement();
-      longAdder.add(1);
+      //atomicInteger.addAndGet(2); 增加一个固定的值
+      //atomicInteger.updateAndGet(n -> n + 2); 通过lambda表达式设值
+      longAdder.add(1);    //等同longAdder.increment();
+
       a = a + 1;
     };
     ExecutorService pool = Executors.newFixedThreadPool(10000);

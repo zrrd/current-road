@@ -12,3 +12,4 @@
 12. Thread12  通过CyclicBarrier进行多线程协同(可以多次使用)
 13. Thread13  通过Callable进行结果回调
 14. Thread14  StampedLock乐观方式的读写锁,读写同时发生的情况低能用到
+15. Thread15  通过信号量模拟准入许可(比如同时允许5个并发)
