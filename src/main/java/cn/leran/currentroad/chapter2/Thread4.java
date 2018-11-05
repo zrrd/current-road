@@ -1,7 +1,7 @@
 package cn.leran.currentroad.chapter2;
 
 /**
- * wait 和 notify 多线程协作 在wait 和 notify 的时候都需要获得object锁
+ * wait 和 notify 多线程协作 在wait 和 notify 的时候都需要获得object锁.
  *
  * @author shaoyijiong
  * @date 2018/7/16
@@ -17,7 +17,8 @@ public class Thread4 {
       synchronized (OBJECT) {
         System.out.println(System.currentTimeMillis() + ": T1 start!");
         try {
-          //释放锁资源 让出cpu 今日等待状态
+          //释放锁资源 让出cpu 进入等待状态 使当前线程阻塞，前提是 必须先获得锁，一般配合synchronized 关键字使用
+          //当线程执行wait()方法时候，会释放当前的锁，然后让出CPU，进入等待状态。
           System.out.println(System.currentTimeMillis() + ": T1 wait!");
           OBJECT.wait();
         } catch (InterruptedException e) {

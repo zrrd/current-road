@@ -18,7 +18,7 @@ public class Thread1 implements Runnable {
     for (int j = 0; j < 100000; j++) {
       //lock.lockInterruptibly();
       lock.lock();
-      //lock.lock(); 可以加多次锁
+      //lock.lock(); 可以加多次锁  代码包装在try-finally代码块中来确保异常情况下的解锁非常重要
       try {
         i++;
       } finally {

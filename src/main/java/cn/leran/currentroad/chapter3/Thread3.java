@@ -23,6 +23,7 @@ public class Thread3 implements Runnable {
   public void run() {
     try {
       lock.lock();
+      //相当于Object的wait()方法 造成当前线程在接到信号或被中断之前一直处于等待状态。
       condition.await();
       System.out.println("Thread is going on");
     } catch (InterruptedException e) {
@@ -35,10 +36,14 @@ public class Thread3 implements Runnable {
   public static void main(String[] args) throws InterruptedException {
 
     Thread3 thread3 = new Thread3();
+    //新建一个线程 启动
     Thread t = new Thread(thread3);
     t.start();
+
+    //暂停当前线程2s  让上面那个线程走完
     Thread.sleep(2000);
     lock.lock();
+    //相当于Object的notify()方法  唤醒一个等待线程。
     condition.signal();
     System.out.println("那个线程激活 还会去获得那个lock");
     Thread.sleep(2000);

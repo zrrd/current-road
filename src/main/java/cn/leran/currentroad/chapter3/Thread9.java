@@ -11,6 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.concurrent.DelayQueue;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -44,6 +45,7 @@ public class Thread9 {
    * 高效读取,读取远远大于写入的场景. 修改的时候直接copy数组  List哦
    */
   CopyOnWriteArrayList<String> copyOnWriteArrayList = new CopyOnWriteArrayList<>();
+  CopyOnWriteArraySet<String> copyOnWriteArraySet = new CopyOnWriteArraySet<>();
 
   /**
    * 数据共享通道,单消费者的场景. 无界队列和有界队列 当然还有对应的Deque(双向队列) Queue只能在队尾插入 队头出.Deque在队头和队尾都能进出
@@ -57,6 +59,7 @@ public class Thread9 {
 
   /**
    * 容量为0点queue 先拿再放  放了以后直接消费. 它的性能表现往往大大超过其他实现,尤其在队列较小的场景.
+   * 也是 blockingQueue大家族的一员
    */
   SynchronousQueue<String> synchronousQueue = new SynchronousQueue<>();
 
@@ -67,6 +70,7 @@ public class Thread9 {
 
   /**
    * 无界的BlockingQueue 用于放置实现了Delayed接口的对象，其中的对象只能在其到期时才能从队列中取走.
+   * blockingQueue 一员
    */
   DelayQueue delayQueue = new DelayQueue<>();
 
