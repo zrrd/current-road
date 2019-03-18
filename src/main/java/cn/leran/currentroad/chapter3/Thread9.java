@@ -23,6 +23,7 @@ import java.util.concurrent.SynchronousQueue;
  * @author shaoyijiong
  * @date 2018/7/18
  */
+@SuppressWarnings("unused")
 public class Thread9 {
 
   /**
@@ -50,7 +51,8 @@ public class Thread9 {
   /**
    * 数据共享通道,单消费者的场景. 无界队列和有界队列 当然还有对应的Deque(双向队列) Queue只能在队尾插入 队头出.Deque在队头和队尾都能进出
    */
-  LinkedBlockingQueue<String> linkedBlockingDeque = new LinkedBlockingQueue<>();
+  LinkedBlockingQueue<String> linkedBlockingQueue = new LinkedBlockingQueue<>();
+  LinkedBlockingDeque<String> linkedBlockingDeque = new LinkedBlockingDeque<>();
   ArrayBlockingQueue<String> arrayBlockingQueue = new ArrayBlockingQueue<>(10);
   /**
    * 跳表,快速查找且有序.
