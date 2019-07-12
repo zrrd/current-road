@@ -1,82 +1,42 @@
 package cn.leran.currentroad.chapter2;
 
-import org.apache.commons.lang3.StringUtils;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
- * 不要通过thread.stop结束线程 通过自动方法结束
+ * trylock 有限等待
  *
  * @author shaoyijiong
  * @date 2018/7/16
  */
-public class Thread2 {
+public class Thread2 implements Runnable {
 
-  public static class User {
+  private static ReentrantLock lock = new ReentrantLock();
 
-    private String name;
-
-    public String getName() {
-      return name;
-    }
-
-    public void setName(String name) {
-      this.name = name;
-    }
-
-    public User(String name) {
-      this.name = name;
-    }
-  }
-
-  public static User u = new User("  a");
-
-  public static class ReadThread extends Thread {
-
-    @Override
-    public void run() {
-      while (true) {
-        synchronized (u) {
-          System.out.println(u.getName());
-          Thread.yield();
-        }
+  @Override
+  public void run() {
+    try {
+      //如果trylock不加时间的话 判断是否能获得锁 立即返回
+      if (lock.tryLock(5, TimeUnit.SECONDS)) {
+        System.out.println(Thread.currentThread().getName() + " get lock");
+        Thread.sleep(6000);
+      } else {
+        System.out.println(Thread.currentThread().getName() + " get lock failed");
       }
-    }
-  }
-
-  public static class ChangeThread extends Thread {
-
-    /**
-     * 退出线程的标志
-     */
-    private boolean isRun = true;
-
-    private void stopThread() {
-      isRun = false;
-    }
-
-    @Override
-    public void run() {
-      while (isRun) {
-        synchronized (u) {
-          DateFormat format = new SimpleDateFormat("HH:mm:ss");
-          Date date = new Date();
-          //如果时分秒有60
-          if (StringUtils.contains(format.format(date), "00")) {
-            System.out.println("修改线程停止了");
-            stopThread();
-          }
-          u.setName(format.format(date) + "  a");
-          Thread.yield();
-        }
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    } finally {
+      if (lock.isHeldByCurrentThread()) {
+        lock.unlock();
       }
     }
   }
 
   public static void main(String[] args) {
-    new ReadThread().start();
-    new ChangeThread().start();
+    Thread2 thread2 = new Thread2();
+    Thread t1 = new Thread(thread2);
+    Thread t2 = new Thread(thread2);
+    t1.start();
+    t2.start();
   }
 }

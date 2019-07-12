@@ -1,52 +1,54 @@
 package cn.leran.currentroad.chapter3;
 
-import java.util.concurrent.locks.Condition;
-import java.util.concurrent.locks.ReentrantLock;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.LongAdder;
 
 /**
- * condition.
+ * AtomicInteger 通过cas技术,实现一个线程安全的int类型. 无锁策略
  *
- * @author shaoyijiong
- * @date 2018/7/16
+ * @author 邵益炯
+ * @date 2018/9/6
  */
-public class Thread3 implements Runnable {
+public class Thread3 {
 
-  private static ReentrantLock lock = new ReentrantLock();
   /**
-   * 获得当前锁绑定的 condition Condition 则是将 wait、notify、notify、notifyAll等操作转化为响应的对象,
-   * 将复杂而晦涩的同步操作转变为直观可控的对象行为.
+   * 除了AtomicInteger java.util.concurrent.atomic 下还有各种类型的数据类型
+   * 高并发下 LongAdder DoubleAdder 优于 AtomicLong
    */
+  private static AtomicInteger atomicInteger = new AtomicInteger(0);
+  /**
+   * 初始值为0.
+   */
+  private static LongAdder longAdder = new LongAdder();
 
-  private static Condition condition = lock.newCondition();
+  private static Integer a = 0;
 
-  @Override
-  public void run() {
-    try {
-      lock.lock();
-      //相当于Object的wait()方法 造成当前线程在接到信号或被中断之前一直处于等待状态。
-      condition.await();
-      System.out.println("Thread is going on");
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    } finally {
-      lock.unlock();
-    }
-  }
-
+  /**
+   * 测试.
+   */
   public static void main(String[] args) throws InterruptedException {
+    Runnable r = () -> {
+      //原子加一
+      atomicInteger.getAndIncrement();
+      //atomicInteger.addAndGet(2); 增加一个固定的值
+      //atomicInteger.updateAndGet(n -> n + 2); 通过lambda表达式设值
+      //等同  longAdder.increment();
+      longAdder.add(1);
 
-    Thread3 thread3 = new Thread3();
-    //新建一个线程 启动
-    Thread t = new Thread(thread3);
-    t.start();
+      a = a + 1;
+    };
+    ExecutorService pool = Executors.newFixedThreadPool(10000);
+    for (int i = 0; i < 10000; i++) {
+      pool.submit(r);
+    }
+    //等待2s所有任务结束  AtomicInteger = 1000  Integer < 1000
+    pool.shutdown();
+    Thread.sleep(2000);
 
-    //暂停当前线程2s  让上面那个线程走完
-    Thread.sleep(2000);
-    lock.lock();
-    //相当于Object的notify()方法  唤醒一个等待线程。
-    condition.signal();
-    System.out.println("那个线程激活 还会去获得那个lock");
-    Thread.sleep(2000);
-    lock.unlock();
+    System.out.println(atomicInteger.get());
+    System.out.println(longAdder.toString());
+    System.out.println(a);
   }
 }

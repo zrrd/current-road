@@ -1,30 +1,43 @@
 package cn.leran.currentroad.chapter2;
 
+import java.util.Random;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 /**
- * join 和 yield Thread.join() 线程的等待 和 Thread.yield()让出当前cpu
+ * CountDownLatch 计数器.
  *
  * @author shaoyijiong
- * @date 2018/7/16
+ * @date 2018/7/17
  */
-public class Thread5 {
+public class Thread5 implements Runnable {
 
-  private static volatile int i = 0;
+  static final CountDownLatch end = new CountDownLatch(10);
+  static final Thread5 demo = new Thread5();
 
-  public static class AddThread extends Thread {
-
-    @Override
-    public void run() {
-      for (i = 0; i < 100000; i++) {
-        System.out.println(i);
-      }
+  @Override
+  public void run() {
+    try {
+      //模拟检查任务
+      Thread.sleep(new Random().nextInt(10) * 1000);
+      System.out.println("check complete");
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    } finally {
+      end.countDown();
     }
   }
 
   public static void main(String[] args) throws InterruptedException {
-    AddThread thread = new AddThread();
-    thread.start();
-    //主线程等待addThread线程  本质是通过wait()当前线程对象实例 线程退出前进行 notifAll()操作
-    thread.join();
-    System.out.println(i);
+    ExecutorService executorService = Executors.newFixedThreadPool(10);
+    for (int i = 0; i < 10; i++) {
+      executorService.submit(demo);
+    }
+    //等待检查
+    end.await();
+    //发射火箭
+    System.out.println("file");
+    executorService.shutdown();
   }
 }

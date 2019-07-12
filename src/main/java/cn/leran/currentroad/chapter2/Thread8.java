@@ -1,70 +1,70 @@
 package cn.leran.currentroad.chapter2;
 
-import org.springframework.util.StopWatch;
-
+import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.ForkJoinTask;
+import java.util.concurrent.RecursiveTask;
 
 /**
- * 线程的优先级.
+ * Fork/Join框架.
  *
  * @author shaoyijiong
- * @date 2018/7/16
+ * @date 2018/7/17
  */
-public class Thread8 {
+public class Thread8 extends RecursiveTask<Long> {
 
-  private static final int MIN_PRIORITY = 1;
-  private static final int NORM_PRIORITY = 5;
-  private static final int MAX_PRIORITY = 10;
+  /**
+   * 分解任务的规模.
+   */
+  private static final int THRESHOLD = 10000;
+  private long start;
+  private long end;
 
-  public static class LowPriority extends Thread {
-
-    static int count = 0;
-
-    @Override
-    public void run() {
-      StopWatch sw = new StopWatch();
-      sw.start("low");
-      while (true) {
-        synchronized (Thread8.class) {
-          count++;
-          if (count > 10000000) {
-            System.out.println("LowPriority is complete");
-            sw.stop();
-            System.out.println("耗时：" + sw.getLastTaskTimeMillis());
-            break;
-          }
-        }
-      }
-    }
+  public Thread8(long start, long end) {
+    this.start = start;
+    this.end = end;
   }
 
-  public static class HighPriority extends Thread {
-
-    static int count = 0;
-
-    @Override
-    public void run() {
-      StopWatch sw = new StopWatch();
-      sw.start("high");
-      while (true) {
-        synchronized (Thread8.class) {
-          count++;
-          if (count > 10000000) {
-            System.out.println("HighPriority is complete");
-            sw.stop();
-            System.out.println("耗时：" + sw.getLastTaskTimeMillis());
-            break;
-          }
+  @Override
+  protected Long compute() {
+    long sum = 0;
+    boolean canCompute = (end - start) < THRESHOLD;
+    if (canCompute) {
+      for (long i = start; i <= end; i++) {
+        sum += i;
+      }
+    } else {
+      //分成100个小任务
+      long step = (start + end) / 100;
+      ArrayList<Thread8> subTasks = new ArrayList<>();
+      long pos = start;
+      for (int i = 0; i < 100; i++) {
+        long lastOne = pos + step;
+        if (lastOne > end) {
+          lastOne = end;
         }
+        //分解任务 分成100个task执行  跟递归的思想很像
+        Thread8 subTask = new Thread8(pos, lastOne);
+        pos += step + 1;
+        subTasks.add(subTask);
+        subTask.fork();
+      }
+      for (Thread8 task : subTasks) {
+        sum += task.join();
       }
     }
+    return sum;
+
   }
 
-  public static void main(String[] args) {
-    Thread low = new LowPriority();
-    Thread high = new HighPriority();
-    low.setPriority(MIN_PRIORITY);
-    high.setPriority(MAX_PRIORITY);
-    low.start();
-    high.start();
+  public static void main(String[] args) throws ExecutionException, InterruptedException {
+    ForkJoinPool forkJoinPool = new ForkJoinPool();
+    //计算0到200000的任务
+    Thread8 task = new Thread8(0, 200000L);
+    //将任务交到线程池
+    ForkJoinTask<Long> result = forkJoinPool.submit(task);
+    long res = result.get();
+    System.out.println("sum =" + res);
   }
 }
