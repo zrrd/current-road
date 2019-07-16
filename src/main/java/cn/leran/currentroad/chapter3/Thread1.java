@@ -33,7 +33,7 @@ import java.util.concurrent.Executors;
  * ThreadLocal 弱引用 详解 (针对threadLocal 定义为临时变量的情况)
  * 当仅仅只有 ThreadLocalMap 中的 Entry 的 key 指向 ThreadLocal 的时候，ThreadLocal 会进行回收的！！！
  * ThreadLocal 被垃圾回收后，在 ThreadLocalMap 里对应的 Entry 的键值会变成 null，但是 Entry 是强引用，那么 Entry 里面存储的 Object，并没有办法进行回收
- * ThreadLocal 进行了特殊处理 当后面再调用set get remove方法时 会将key为null的对象清除掉
+ * ThreadLocal 进行了特殊处理 当后面再调用set get remove方法时 会将key为nul
  * </pre>
  *
  * @author shaoyijiong
