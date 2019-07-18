@@ -13,3 +13,8 @@
 13. Thread13  通过Callable进行结果回调
 14. Thread14  StampedLock乐观方式的读写锁,读写同时发生的情况低能用到
 15. Thread15  通过信号量模拟准入许可(比如同时允许5个并发)
+
+---
+advanced 
+ 1. CustomThreadPool 自定义一个简单的线程
+ 2. 

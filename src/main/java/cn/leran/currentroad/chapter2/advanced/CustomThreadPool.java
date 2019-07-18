@@ -1,4 +1,4 @@
-package cn.leran.currentroad.chapter2;
+package cn.leran.currentroad.chapter2.advanced;
 
 import java.util.AbstractSet;
 import java.util.Iterator;
@@ -15,7 +15,13 @@ import java.util.concurrent.locks.ReentrantLock;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * 手写自定义线程池
+ * <pre>
+ * 线程池中新任务的执行顺序
+ * 1. 当前线程池的数量是否小于核心线程数 小于的话直接新建线程执行 否则 -> 2
+ * 2. 当前任务队列是否已满 未满放入任务队列 等待执行 否则 -> 3
+ * 3. 当前线程数是否小于最大线程数 小于的话新建线程执行 否则执行拒绝策略
+ * </pre>
+ * 手写自定义线程池 (线程池的的线程是靠阻塞线程保留最小线程数量的 , 不阻塞超过核心线程数的线程来销毁超过核心线程数的线程 , 这边的阻塞与不阻塞是靠BlockQueue实现的)
  *
  * @author shaoyijiong
  * @date 2019/7/17
@@ -248,6 +254,7 @@ public class CustomThreadPool {
     //        }
     //    }
 
+    //这里加锁
     lock.lock();
 
     try {
