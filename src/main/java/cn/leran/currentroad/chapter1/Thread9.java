@@ -8,7 +8,7 @@ package cn.leran.currentroad.chapter1;
  */
 public class Thread9 implements Runnable {
 
-  static Thread9 account = new Thread9();
+  private static Thread9 account = new Thread9();
   private static volatile int i = 0;
 
   /**
@@ -19,7 +19,7 @@ public class Thread9 implements Runnable {
   }
 
   /**
-   * 代码块同步
+   * 代码块同步 通过共享变量同步
    */
   private void add1() {
     synchronized (this) {
