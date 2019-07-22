@@ -18,7 +18,7 @@ public class Thread1 {
 
 
   /**
-   * 通过实现runnable接口开启线程
+   * 1. 通过实现runnable接口开启线程
    */
   private void runnable() {
     //通过lambda表达式实现一个runnable接口
@@ -29,7 +29,7 @@ public class Thread1 {
 
 
   /**
-   * 通过继承Thread实现一个线程
+   * 2. 通过继承Thread实现一个线程
    */
   static class MyThread extends Thread {
 
@@ -44,6 +44,9 @@ public class Thread1 {
   }
 
 
+  /**
+   * 3. 通过FutureTask 带有回调的线程
+   */
   static class CallerTask implements Callable<String> {
 
     @Override
