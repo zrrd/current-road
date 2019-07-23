@@ -10,21 +10,47 @@ public class Thread5 {
 
   private static volatile int i = 0;
 
-  public static class AddThread extends Thread {
+  public static class ThreadOne extends Thread {
 
     @Override
     public void run() {
-      for (i = 0; i < 100000; i++) {
-        System.out.println(i);
+      try {
+        Thread.sleep(2000);
+      } catch (InterruptedException e) {
+        e.printStackTrace();
       }
+      System.out.println("thread one 执行结束");
+    }
+
+  }
+
+  public static class ThreadTwo extends Thread {
+
+    @Override
+    public void run() {
+      try {
+        Thread.sleep(1000);
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
+      System.out.println("thread tow 执行结束");
     }
   }
 
+
   public static void main(String[] args) throws InterruptedException {
-    AddThread thread = new AddThread();
-    thread.start();
+    ThreadOne threadOne = new ThreadOne();
+    ThreadTwo threadTwo = new ThreadTwo();
+    threadOne.start();
+    threadTwo.start();
+
+
+
     //主线程等待addThread线程  本质是通过wait()当前线程对象实例 线程退出前进行 notifAll()操作
-    thread.join();
-    System.out.println(i);
+
+    // 阻塞当前线程 等待线程1执行完
+    threadOne.join();
+    // 阻塞当前线程 等待线程2执行完
+    threadTwo.join();
   }
 }
