@@ -30,6 +30,7 @@ public class Thread3 {
     // t1.stop 其他线程强制中断某个线程 被废弃了
     t1.interrupt();
 
+    t1.join();
 
     //被废弃了 t1.stop();
   }
