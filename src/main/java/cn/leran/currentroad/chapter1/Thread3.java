@@ -7,6 +7,11 @@ package cn.leran.currentroad.chapter1;
  * ① 如果线程处于被阻塞状态（例如处于sleep, wait, join 等状态），那么线程将立即退出被阻塞状态，并抛出一个InterruptedException异常。仅此而已。
  * ② 如果线程处于正常活动状态，那么会将该线程的中断标志设置为 true，仅此而已。被设置中断标志的线程将继续正常运行，不受影响。
  * </pre>
+ * <pre>
+ * void interrupt() 中断线程 使线程的中断标志为true
+ * boolean isInterrupted() 检测当前线程是否被中断 是返回true 否返回false
+ * boolean interrupted() 检测当前线程是否中断 如果发现当前线程被中断 清除中断标志 并且返回true
+ * </pre>
  *
  * @author shaoyijiong
  * @date 2018/7/16
@@ -51,6 +56,12 @@ public class Thread3 {
         }
       }
     });
+
+    Thread t4 = new Thread(() -> {
+      for (; ; ) {
+
+      }
+    });
     t1.start();
     Thread.sleep(2000);
     // 这边不是真的中断线程  而是通知线程该中断了  是否需要中断还是有线程本身决定
@@ -67,6 +78,17 @@ public class Thread3 {
 
     t3.start();
     t3.interrupt();
-    t2.join();
+    t3.join();
+
+    t4.start();
+    t4.interrupt();
+    // true false false true
+    // 获取中断标志
+    System.out.println("isInterrupted" + t4.isInterrupted());
+    // 这里要注意 interrupted 是静态方法不管怎么样都是获取当前线程的中断状态 t4.interrupted() ==  Thread.interrupted()
+    System.out.println("isInterrupted" + t4.interrupted());
+    System.out.println("isInterrupted" + Thread.interrupted());
+    System.out.println("isInterrupted" + t4.isInterrupted());
+    t4.join();
   }
 }

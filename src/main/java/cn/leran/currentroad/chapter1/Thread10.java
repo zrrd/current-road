@@ -16,7 +16,7 @@ public class Thread10 {
       String name = Thread.currentThread().getName();
       System.out.println(name + "start");
 
-      // 加上yield 后 start 与 cpu gat again
+      // 加上yield 后 start 与 cpu gat again 不是顺序出现
       //System.out.println(name + "yield cpu");
       //Thread.yield();
 
