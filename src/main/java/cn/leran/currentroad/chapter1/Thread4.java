@@ -58,9 +58,25 @@ public class Thread4 {
     }
   }
 
+  public static class T3 extends Thread {
+
+    // 线程在没有拿到监视器锁的情况下调用 监视对象的wait
+    // 会抛出IllegalMonitorStateException 监视器状态异常
+    @Override
+    public void run() {
+      try {
+        OBJECT.wait();
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
+    }
+  }
+
   public static void main(String[] args) throws InterruptedException {
     Thread t1 = new T1();
     Thread t2 = new T2();
+    //Thread t3 = new T3();
+    //t3.start();
     t1.start();
     // 增加一个睡眠时间 防止t2在t1前获取锁
     Thread.sleep(2000);

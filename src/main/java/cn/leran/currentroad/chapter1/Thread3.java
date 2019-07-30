@@ -13,8 +13,11 @@ package cn.leran.currentroad.chapter1;
  */
 public class Thread3 {
 
+  private static final Object object = new Object();
+
   public static void main(String[] args) throws InterruptedException {
     Thread t1 = new Thread(() -> {
+      Thread.currentThread().interrupt();
       while (true) {
         if (Thread.currentThread().isInterrupted()) {
           System.out.println("interrupted" + "  线程中断了啊！");
@@ -22,6 +25,30 @@ public class Thread3 {
         }
         Thread.yield();
         System.out.println("线程进行中");
+      }
+    });
+
+    Thread t2 = new Thread(() -> {
+      try {
+        Thread.sleep(100000);
+      } catch (InterruptedException e) {
+        System.out.println("在sleep时调用interrupt函数,抛出异常InterruptedException");
+      }
+    });
+
+    Thread t3 = new Thread(() -> {
+      synchronized (object) {
+        try {
+          object.wait();
+        } catch (InterruptedException e) {
+          // 抛出异常后 中断表示会自动清除
+          System.out.println(Thread.currentThread().isInterrupted());
+          System.out.println("在wait时调用interrupt函数,抛出异常InterruptedException");
+
+          // 中不中断由自己决定，如果需要真真中断线程，则需要重新设置中断位，如果
+          // 不需要，则不用调用
+          Thread.currentThread().interrupt();
+        }
       }
     });
     t1.start();
@@ -33,5 +60,13 @@ public class Thread3 {
     t1.join();
 
     //被废弃了 t1.stop();
+
+    t2.start();
+    t2.interrupt();
+    t2.join();
+
+    t3.start();
+    t3.interrupt();
+    t2.join();
   }
 }
