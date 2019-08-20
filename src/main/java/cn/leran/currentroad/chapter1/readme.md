@@ -9,6 +9,7 @@
 * Thread9 synchronized线程安全
 * sleep 方法不会释放资源监视器 但是会让出CPU资源
 * Thread10 yield 让出CPU
+* Thread11 volatile 可见性
 
 ---
 * SpuriousWakeup 线程的虚假环境与避免线程的虚假唤醒
