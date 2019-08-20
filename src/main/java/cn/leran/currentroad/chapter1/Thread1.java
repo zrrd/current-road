@@ -55,6 +55,40 @@ public class Thread1 {
     }
   }
 
+  /**
+   * <pre>
+   * FutureTask 实现了两个接口 一个Runnable 一个Future
+   * Runnable 用来开始线程
+   * Future 用来控制线程状态
+   *
+   * FutureTask 定义了这些状态
+   * private static final int NEW          = 0;
+   * private static final int COMPLETING   = 1;
+   * private static final int NORMAL       = 2;
+   * private static final int EXCEPTIONAL  = 3;
+   * private static final int CANCELLED    = 4;
+   * private static final int INTERRUPTING = 5;
+   * private static final int INTERRUPTED  = 6;
+   *
+   * 根据 FutureTask.run() 方法的执行的时机，FutureTask 分为了 3 种状态：
+   * 未启动。FutureTask.run() 方法还没有被执行之前，FutureTask 处于未启动状态。当创建一个 FutureTask，还没有执行 FutureTask.run() 方法之前，FutureTask 处于未启动状态。
+   * 已启动。FutureTask.run() 方法被执行的过程中，FutureTask 处于已启动状态。
+   * 已完成。FutureTask.run() 方法执行结束，或者调用 FutureTask.cancel(...) 方法取消任务，或者在执行任务期间抛出异常，这些情况都称之为 FutureTask 的已完成状态。
+   *
+   * get() 方法当 FutureTask 处于未启动或已启动状态时，执行 FutureTask.get() 方法将导致调用线程阻塞。如果 FutureTask 处于已完成状态，
+   * 调用 FutureTask.get() 方法将导致调用线程立即返回结果或者抛出异常
+   *
+   * cancel() 当 FutureTask 处于未启动状态时，执行 FutureTask.cancel() 方法将此任务永远不会执行；
+   * 当 FutureTask 处于已启动状态时，执行 FutureTask.cancel(true) 方法将以中断线程的方式来阻止任务继续进行，
+   * 如果执行 FutureTask.cancel(false) 将不会对正在执行任务的线程有任何影响；
+   * 当 FutureTask 处于已完成状态时，执行 FutureTask.cancel(...) 方法将返回 false。
+   *
+   * isCancelled() 方法表示任务是否被取消成功，如果在任务正常完成前被取消成功，则返回 true。
+   *
+   * isDone() 方法表示任务是否已经完成，若任务完成，则返回true；
+   * </pre>
+   *
+   */
   private static void futureTask() {
     // 创建异步任务
     FutureTask<String> futureTask = new FutureTask<>(new CallerTask());

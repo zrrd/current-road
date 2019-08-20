@@ -29,6 +29,9 @@ public class Thread4 {
           // 释放锁资源 让出cpu 进入等待状态 使当前线程阻塞，前提是 必须先获得锁，一般配合synchronized 关键字使用
           // 当线程执行wait()方法时候，会释放当前的锁，然后让出CPU，进入等待状态。
           System.out.println(System.currentTimeMillis() + ": T1 wait!");
+          // sleep(1000) 不参与 CPU 竞争
+          // wait(1000) 表示将锁释放1000毫秒，到时间后如果锁没有被其他线程占用，则再次得到锁，然后wait方法结束，执行后面的代码，如果锁被其他线程占用，则等待其他线程释放锁。
+          // 超时时间的wait方法一旦过了超时时间，并不需要其他线程执行notify也能自动解除阻塞，但是如果没设置超时时间的wait方法必须等待其他线程执行notify。
           OBJECT.wait();
         } catch (InterruptedException e) {
           e.printStackTrace();
