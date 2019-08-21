@@ -1,4 +1,4 @@
-package cn.leran.currentroad.chapter3;
+package cn.leran.currentroad.chapter1;
 
 /**
  * <pre>
@@ -9,7 +9,7 @@ package cn.leran.currentroad.chapter3;
  * @author shaoyijiong
  * @date 2019/8/8
  */
-public class Thread4 {
+public class Thread13 {
 
   private static final ThreadLocal<String> threadLocal1 = new ThreadLocal<>();
   private static final ThreadLocal<String> threadLocal2 = new InheritableThreadLocal<>();

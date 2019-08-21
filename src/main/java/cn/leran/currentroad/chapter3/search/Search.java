@@ -1,4 +1,4 @@
-package cn.leran.currentroad.chapter4.search;
+package cn.leran.currentroad.chapter3.search;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package cn.leran.currentroad.chapter4.future;
+package cn.leran.currentroad.chapter3.future;
 
 import java.util.concurrent.Callable;
 

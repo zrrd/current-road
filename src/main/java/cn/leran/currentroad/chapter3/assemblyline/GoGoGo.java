@@ -1,4 +1,4 @@
-package cn.leran.currentroad.chapter4.assemblyline;
+package cn.leran.currentroad.chapter3.assemblyline;
 
 /**
  * 实践类,通过流水线的方式,完成(I + J) * I / 2 的操作.

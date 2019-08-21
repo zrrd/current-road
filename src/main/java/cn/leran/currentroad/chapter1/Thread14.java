@@ -1,4 +1,4 @@
-package cn.leran.currentroad.chapter3;
+package cn.leran.currentroad.chapter1;
 
 /**
  * 哲学家问题,导致死锁.
@@ -6,14 +6,14 @@ package cn.leran.currentroad.chapter3;
  * @author shaoyijiong
  * @date 2018/7/18
  */
-public class Thread2 extends Thread {
+public class Thread14 extends Thread {
 
   private String happyName;
 
-  static final Object fork1 = new Object();
-  static final Object fork2 = new Object();
+  private static final Object fork1 = new Object();
+  private static final Object fork2 = new Object();
 
-  public Thread2(String happyName) {
+  private Thread14(String happyName) {
     this.happyName = happyName;
   }
 
@@ -51,8 +51,8 @@ public class Thread2 extends Thread {
   }
 
   public static void main(String[] args) {
-    Thread2 t1 = new Thread2("哲学家1");
-    Thread2 t2 = new Thread2("哲学家2");
+    Thread14 t1 = new Thread14("哲学家1");
+    Thread14 t2 = new Thread14("哲学家2");
     //多次循环发生死锁
     for (int i = 0; i < 1000; i++) {
       t1.start();

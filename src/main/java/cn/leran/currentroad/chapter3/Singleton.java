@@ -1,4 +1,4 @@
-package cn.leran.currentroad.chapter4;
+package cn.leran.currentroad.chapter3;
 
 /**
  * 线程安全的单例.

@@ -1,4 +1,4 @@
-package cn.leran.currentroad.chapter4.assemblyline;
+package cn.leran.currentroad.chapter3.assemblyline;
 
 import lombok.Data;
 

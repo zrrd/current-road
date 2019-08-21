@@ -1,5 +1,8 @@
-* Thread1  ThreadLocal 的使用每一个线程的专属对象
-* Thread2  哲学家问题 产生死锁的例子
-* Thread3  atomic 线程安全的对象 基于无锁操作 cas
-* Thread4  Inheritable ThreadLocal 在自线程获取父线程的ThreadLocal
-* go.md    自己使用锁与java虚拟机对于锁的优化策略
+* assemblyline 流水线处理
+* disruptor    并发框架  用于实现生产者消费者模式
+* future       异步处理返回结果
+* search       多线程查找
+* socket       socket套接字编程
+* singleton    线程安全的单例
+* consumer     实现一个生成者消费者模式
+* Lambda       函数式编程的并发使用

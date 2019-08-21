@@ -1,4 +1,4 @@
-package cn.leran.currentroad.chapter5;
+package cn.leran.currentroad.chapter3;
 
 import java.util.Arrays;
 import java.util.Random;
@@ -6,7 +6,7 @@ import java.util.stream.IntStream;
 import org.springframework.util.StopWatch;
 
 /**
- * lambda Test.
+ * lambda Test1.
  *
  * @author shaoyijiong
  * @date 2018/7/23

@@ -1,4 +1,4 @@
-package cn.leran.currentroad.chapter4.socket.common;
+package cn.leran.currentroad.chapter3.socket.common;
 
 import java.io.BufferedReader;
 import java.io.IOException;

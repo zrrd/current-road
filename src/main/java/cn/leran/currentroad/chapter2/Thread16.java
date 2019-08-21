@@ -1,4 +1,4 @@
-package cn.leran.currentroad.chapter3;
+package cn.leran.currentroad.chapter2;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -11,7 +11,7 @@ import java.util.concurrent.atomic.LongAdder;
  * @author 邵益炯
  * @date 2018/9/6
  */
-public class Thread3 {
+public class Thread16 {
 
   /**
    * 除了AtomicInteger java.util.concurrent.atomic 下还有各种类型的数据类型

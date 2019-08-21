@@ -1,10 +1,10 @@
-package cn.leran.currentroad.chapter5;
+package cn.leran.currentroad.chapter4;
 
 /**
  * @author shaoyijiong
  * @date 2019/8/9
  */
-public class Test {
+public class Test1 {
 
 
   private static final Object object = new Object();
@@ -13,11 +13,11 @@ public class Test {
    * 两个线程循环打印 直到10
    */
   private static void test1() throws InterruptedException {
-    Runnable r1 = () -> {
+    Runnable runnable = () -> {
       int i = 0;
       synchronized (object) {
         while (i < 10) {
-          System.out.println(Thread.currentThread().getName() + ++i);
+          System.out.println(Thread.currentThread().getName() + "  " + ++i);
           try {
             // 唤醒其他线程去竞争 但是该线程还持有锁 其他线程无法进入同步块
             object.notify();
@@ -30,23 +30,8 @@ public class Test {
       }
     };
 
-    Runnable r2 = () -> {
-      int i = 0;
-      synchronized (object) {
-        while (i < 10) {
-          System.out.println(Thread.currentThread().getName() + ++i);
-          object.notify();
-          try {
-            object.wait();
-          } catch (InterruptedException e) {
-            e.printStackTrace();
-          }
-        }
-      }
-    };
-
-    Thread t1 = new Thread(r1);
-    Thread t2 = new Thread(r2);
+    Thread t1 = new Thread(runnable);
+    Thread t2 = new Thread(runnable);
     t1.start();
     t2.start();
     t1.join();

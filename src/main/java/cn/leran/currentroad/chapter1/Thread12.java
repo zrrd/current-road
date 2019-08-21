@@ -1,4 +1,4 @@
-package cn.leran.currentroad.chapter3;
+package cn.leran.currentroad.chapter1;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -39,7 +39,7 @@ import java.util.concurrent.Executors;
  * @author shaoyijiong
  * @date 2018/7/18
  */
-public class Thread1 {
+public class Thread12 {
 
   /**
    * 线程共享一个DateFormat

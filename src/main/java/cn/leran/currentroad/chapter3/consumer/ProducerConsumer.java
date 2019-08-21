@@ -1,4 +1,4 @@
-package cn.leran.currentroad.chapter4;
+package cn.leran.currentroad.chapter3.consumer;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;

@@ -1,3 +1,6 @@
+### 多线程基础
+
+* status 线程的状态
 * Thread1 一个简单的线程
 * Thread2 不要通过stop结束线程 通过方法让他结束
 * Thread3 interrupt() 通过线程中断退出线程
@@ -7,12 +10,34 @@
 * Thread7 守护线程 Daemon
 * Thread8 线程的优先级
 * Thread9 synchronized线程安全
-* sleep 方法不会释放资源监视器 但是会让出CPU资源
 * Thread10 yield 让出CPU
 * Thread11 volatile 可见性
+* Thread12 ThreadLocal 的使用每一个线程的专属对象
+* Thread13 Inheritable ThreadLocal 在自线程获取父线程的ThreadLocal
+* Thread14 哲学家问题 产生死锁的例子
 
 ---
+#### advanced
+
 * SpuriousWakeup 线程的虚假环境与避免线程的虚假唤醒
+
+---
+
+* sleep 方法不会释放资源监视器 但是会让出CPU资源
+
+#### 锁的优化策略
+1. 减小锁的持有时间
+2. 减小锁的粒度
+3. 读写分离锁来代替独占锁
+4. 锁分离(将各个功能的锁分离)
+5. 锁粗化
+
+#### java虚拟机锁的策略
+1. 锁偏向
+2. 轻量级锁
+3. 自旋锁
+4. 锁消除
+
 * 上下文切换 
 > 多任务系统往往需要同时执行多道作业。作业数往往大于机器的CPU数，然而一颗CPU同时只能执行一项任务，
 如何让用户感觉这些任务正在同时进行呢? 操作系统的设计者 巧妙地利用了时间片轮转的方式, 

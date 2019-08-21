@@ -1,15 +1,15 @@
-package cn.leran.currentroad.chapter4.assemblyline;
+package cn.leran.currentroad.chapter3.assemblyline;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
 
 /**
- * 加法
+ * 除法.
  *
  * @author shaoyijiong
  * @date 2018/7/20
  */
-public class Plus implements Runnable {
+public class Div implements Runnable {
 
   public static BlockingQueue<Msg> bq = new LinkedBlockingDeque<>();
 
@@ -18,8 +18,8 @@ public class Plus implements Runnable {
     while (true) {
       try {
         Msg msg = bq.take();
-        msg.setJ(msg.getI() + msg.getJ());
-        Multiply.bq.add(msg);
+        msg.setI(msg.getI() / 2);
+        System.out.println(msg.getOrgStr() + "=" + msg.getI());
       } catch (InterruptedException e) {
         e.printStackTrace();
       }

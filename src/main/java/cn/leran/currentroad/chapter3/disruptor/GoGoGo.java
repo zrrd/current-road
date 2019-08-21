@@ -1,4 +1,4 @@
-package cn.leran.currentroad.chapter4.disruptor;
+package cn.leran.currentroad.chapter3.disruptor;
 
 import com.lmax.disruptor.BlockingWaitStrategy;
 import com.lmax.disruptor.RingBuffer;
