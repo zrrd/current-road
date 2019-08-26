@@ -10,6 +10,12 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class Thread1 implements Runnable {
 
+  /**
+   * <pre>
+   * 是否为公平锁 new ReentrantLock(true);
+   * 非公平锁    new ReentrantLock(false);
+   * </pre>
+   */
   private static ReentrantLock lock = new ReentrantLock();
   public static int i = 0;
 
@@ -28,6 +34,9 @@ public class Thread1 implements Runnable {
     }
   }
 
+  /**
+   * 测试
+   */
   public static void main(String[] args) throws InterruptedException {
     Thread1 thread1 = new Thread1();
     Thread t1 = new Thread(thread1);

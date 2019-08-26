@@ -14,12 +14,20 @@ import java.util.concurrent.atomic.LongAdder;
 public class Thread16 {
 
   /**
+   * <pre>
    * 除了AtomicInteger java.util.concurrent.atomic 下还有各种类型的数据类型
-   * 高并发下 LongAdder DoubleAdder 优于 AtomicLong
+   * 基于 unsafe 类 , 实现cas操作 , 在高并发下多个线程竞争 , 存在问题
+   * </pre>
    */
   private static AtomicInteger atomicInteger = new AtomicInteger(0);
   /**
-   * 初始值为0.
+   * <pre>
+   * 初始值为0. 高并发下 LongAdder DoubleAdder 优于 AtomicLong
+   * 高并发下 , 只有一个线程能够cas成功 , 其他线程会无限循环不断进行自旋尝试cas操作 , 白白浪费cpu资源
+   * LongAdder 通过将变量分为多个 , 让多线程竞争多个资源 Cell[] as,解决性能问题
+   * cell 里面有一个初始化为0的long型变量,当前Cell cas失败后 , 去其他变量上进行cas操作 , 获取LongAdder值时 , 累加所有的 cell 加上 base 返回的
+   * LongAdder 维护了一个延迟初始化Cell[] 数组 , cell的数组大小为 2的N次方
+   * </pre>
    */
   private static LongAdder longAdder = new LongAdder();
 
@@ -48,7 +56,8 @@ public class Thread16 {
     Thread.sleep(2000);
 
     System.out.println(atomicInteger.get());
-    System.out.println(longAdder.toString());
+    // sum 时没有加锁 返回的值并不是非常精确
+    System.out.println(longAdder.sum());
     System.out.println(a);
   }
 }

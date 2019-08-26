@@ -23,3 +23,4 @@ advanced
  2. ConcurrentHashMapGo size() 会小于真正的 size
  3. AtomicStampedReferenceGO 通过 AtomicStampedReference 解决 CAS ABA问题
  4. UnsafeGo  使用 unsafe 来自操作内存
+ 5. ThreadLocalRandomGo 在高并发下 使用 ThreadLocalRandom 来替代 Random 来提高性能
