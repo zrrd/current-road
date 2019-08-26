@@ -3,6 +3,7 @@ package cn.leran.currentroad.chapter2;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.LongAccumulator;
 import java.util.concurrent.atomic.LongAdder;
 
 /**
@@ -30,6 +31,13 @@ public class Thread16 {
    * </pre>
    */
   private static LongAdder longAdder = new LongAdder();
+  /**
+   * <pre>
+   *  LongAdder 是一种特殊的 LongAccumulator
+   *  LongAdder 的操作 x+y 而 LongAccumulator 自定义操作
+   * </pre>
+   */
+  private static LongAccumulator longAccumulator = new LongAccumulator((x, y) -> x * y, 0);
 
   private static Integer a = 0;
 

@@ -28,6 +28,7 @@ public class ThreadLocalRandomGo {
 
     // 存放在Thread 中的种子生成器
     //  long threadLocalRandomSeed;
+    //  当前线程随机数
     //  int threadLocalRandomProbe;
     //  int threadLocalRandomSecondarySeed;
     Thread thread = Thread.currentThread();

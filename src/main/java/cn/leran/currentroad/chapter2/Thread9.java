@@ -33,6 +33,12 @@ public class Thread9 {
   List synchronizedList = Collections.synchronizedList(new ArrayList<>());
 
   /**
+   * 高效读取,读取远远大于写入的场景. 修改的时候直接copy数组  List哦
+   */
+  CopyOnWriteArrayList<String> copyOnWriteArrayList = new CopyOnWriteArrayList<>();
+  CopyOnWriteArraySet<String> copyOnWriteArraySet = new CopyOnWriteArraySet<>();
+
+  /**
    * 线程安全的HashMap.
    */
   ConcurrentHashMap<String, String> concurrentHashMap = new ConcurrentHashMap<>();
@@ -41,12 +47,6 @@ public class Thread9 {
    * 高效的读写队列 ConcurrentLinkedDeque不支持阻塞. (一般建议使用LinkedBlockingQueue,除非有特殊需求)
    */
   ConcurrentLinkedDeque<String> concurrentLinkedDeque = new ConcurrentLinkedDeque<>();
-
-  /**
-   * 高效读取,读取远远大于写入的场景. 修改的时候直接copy数组  List哦
-   */
-  CopyOnWriteArrayList<String> copyOnWriteArrayList = new CopyOnWriteArrayList<>();
-  CopyOnWriteArraySet<String> copyOnWriteArraySet = new CopyOnWriteArraySet<>();
 
   /**
    * 数据共享通道,单消费者的场景. 无界队列和有界队列 当然还有对应的Deque(双向队列) Queue只能在队尾插入 队头出.Deque在队头和队尾都能进出
