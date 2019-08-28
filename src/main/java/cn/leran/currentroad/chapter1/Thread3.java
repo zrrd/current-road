@@ -16,6 +16,7 @@ package cn.leran.currentroad.chapter1;
  * @author shaoyijiong
  * @date 2018/7/16
  */
+@SuppressWarnings("all")
 public class Thread3 {
 
   private static final Object object = new Object();
