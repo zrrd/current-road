@@ -78,4 +78,20 @@ class Thread17 {
     System.out.println("end park");
   }
 
+  /**
+   * thread.interrupt 与 LockSupport.unpark() 一样能够中断阻塞
+   */
+  @Test
+  void test6() throws InterruptedException {
+    Thread thread = new Thread(() -> {
+      System.out.println("thread begin park!");
+      LockSupport.park(this);
+      System.out.println("thread end park");
+    });
+    thread.start();
+    Thread.sleep(1000);
+    //thread.interrupt();
+    thread.join();
+  }
+
 }
