@@ -65,13 +65,17 @@ public class Thread1 {
           for (int j = 0; j < 1000; j++) {
             i++;
           }
-          lock.unlock();
           System.out.println("t2 成功释放锁");
         } else {
           System.out.println("t2 获取锁失败");
         }
       } catch (InterruptedException e) {
         e.printStackTrace();
+      } finally {
+        // 判断当前线程是否持有锁
+        if (lock.isHeldByCurrentThread()) {
+          lock.unlock();
+        }
       }
     });
 
