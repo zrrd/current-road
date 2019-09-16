@@ -1,67 +1,118 @@
 package cn.leran.currentroad.chapter2;
 
-import java.util.Random;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
- * 读写锁
+ * 读写锁 使用示例
  *
  * @author shaoyijiong
  * @date 2018/7/16
  */
 public class Thread4 {
 
-  private static Lock lock = new ReentrantLock();
-  /**
-   * 读写锁
-   */
-  private static ReentrantReadWriteLock readWriteLockLock = new ReentrantReadWriteLock();
-  /**
-   * 读锁
-   */
-  private static Lock readLock = readWriteLockLock.readLock();
-  /**
-   * 写锁
-   */
-  private static Lock writeLock = readWriteLockLock.writeLock();
-  private int value;
 
-  public Object handleRead(Lock lock) {
-    try {
-      lock.lock();
-      Thread.sleep(1000);
-      return value;
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    } finally {
-      lock.unlock();
+  /**
+   * 将一个线程不安全的 列表 通过加锁的方式改成一个线程安全的列表
+   */
+  static class SynchronizedList {
+
+    List<String> list;
+    /**
+     * 构造一个非公平读写锁
+     */
+    private ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
+    /**
+     * 读锁
+     */
+    private Lock readLock = lock.readLock();
+    /**
+     * 写锁
+     */
+    private Lock writeLock = lock.writeLock();
+
+
+    public SynchronizedList() {
+      this.list = new ArrayList<>();
     }
-    return -1;
+
+    public void add(String str) {
+      writeLock.lock();
+      try {
+        list.add(str);
+      } finally {
+        writeLock.unlock();
+      }
+    }
+
+    public void remove(String str) {
+      writeLock.lock();
+      try {
+        list.remove(str);
+      } finally {
+        writeLock.unlock();
+      }
+    }
+
+    public String get(int index) {
+      readLock.lock();
+      try {
+        return list.get(index);
+      } finally {
+        readLock.unlock();
+      }
+    }
+
+    public int size() {
+      readLock.lock();
+      try {
+        return list.size();
+      } finally {
+        readLock.unlock();
+      }
+    }
   }
 
-  public void handleWrite(Lock lock, int index) {
-    try {
-      lock.lock();
-      Thread.sleep(1000);
-      value = index;
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    } finally {
-      lock.unlock();
-    }
-  }
 
-  public static void main(String[] args) {
-    final Thread4 demo = new Thread4();
-    Runnable readRunnable = () -> demo.handleRead(readLock);
-    Runnable writeRunnable = () -> demo.handleWrite(writeLock, new Random().nextInt());
-    for (int i = 0; i < 18; i++) {
-      new Thread(readRunnable).start();
-    }
-    for (int i = 18; i < 20; i++) {
-      new Thread(writeRunnable).start();
-    }
+  public static void main(String[] args) throws InterruptedException {
+    SynchronizedList list = new SynchronizedList();
+    //List<String> list = new ArrayList<>();
+    Thread t1 = new Thread(() -> {
+      for (int i = 0; i < 10000; i++) {
+        list.add(String.valueOf(i));
+      }
+    });
+
+    Thread t2 = new Thread(() -> {
+      for (int i = 0; i < 10000; i++) {
+        list.add(String.valueOf(i));
+      }
+    });
+
+    Thread t3 = new Thread(() -> {
+      for (int i = 0; i < 10000; i++) {
+        System.out.println(list.get(list.size() - 1));
+      }
+    });
+
+    Thread t4 = new Thread(() -> {
+      for (int i = 0; i < 10000; i++) {
+        System.out.println("size " + list.size());
+      }
+    });
+
+    t1.start();
+    t2.start();
+    t3.start();
+    t4.start();
+
+    t1.join();
+    t2.join();
+    t3.join();
+    t4.join();
+
+    System.out.println("final size " + list.size());
   }
 }

@@ -1,7 +1,7 @@
 ### concurrent 包并发工具的使用
 
 1.  Thread1   ReentrantLock 重入锁 可以加锁多次
-2.  Thread2  LockSupport  线程工具类 阻塞线程
+2.  Thread2   LockSupport  线程工具类 阻塞线程
 3.  Thread3   condition     wait 和 signal线程同步
 4.  Thread4   ReentrantReadWriteLock 读写锁 处理写少读多的情况效率更高
 5.  Thread5   CountDownLatch 计数器 所有线程完成任务
