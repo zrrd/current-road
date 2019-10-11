@@ -15,6 +15,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.concurrent.DelayQueue;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.PriorityBlockingQueue;
 import java.util.concurrent.SynchronousQueue;
 
 /**
@@ -69,7 +70,10 @@ public class Thread9 {
    * 优先级队列(无界). 非线程安全的
    */
   PriorityQueue<String> priorityQueue = new PriorityQueue<>();
-
+  /**
+   * 优先级阻塞队列 线程安全
+   */
+  PriorityBlockingQueue<String> priorityBlockingQueue = new PriorityBlockingQueue<>();
   /**
    * 无界的BlockingQueue 用于放置实现了Delayed接口的对象，其中的对象只能在其到期时才能从队列中取走.
    * blockingQueue 一员

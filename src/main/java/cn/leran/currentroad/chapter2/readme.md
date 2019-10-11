@@ -16,6 +16,8 @@
 14. Thread14  StampedLock乐观方式的读写锁,读写同时发生的情况低能用到
 15. Thread15  通过信号量模拟准入许可(比如同时允许5个并发)
 16. Thread16  atomic 线程安全的对象 基于无锁操作 cas
+17. Thread17  LinkedBlockingQueue 的使用
+18. Thread18  PriorityBlockingQueue 与 DelayQueue 的使用  
 
 ---
 ### advanced 
