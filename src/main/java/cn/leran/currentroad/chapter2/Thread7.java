@@ -37,8 +37,13 @@ public class Thread7 {
     // threadFactory 线程工厂用于创建线程
     // handler 拒绝策略 当任务太多来不及处理,如何拒绝任务
     // 1.DiscardPolicy 直接丢弃 2.DiscardOldestPolicy 丢弃队列中最老的任务 3.AbortPolicy 抛异常(默认) 4.CallerRunsPolicy 将任务分给调用线程来执行
-    ExecutorService pool = new ThreadPoolExecutor(5, 200, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingDeque<>(1024),
+    ThreadPoolExecutor pool = new ThreadPoolExecutor(5, 200, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingDeque<>(1024),
         nameThreadFactory, new ThreadPoolExecutor.AbortPolicy());
+
+
+    // 核心线程是否会过期
+    pool.allowCoreThreadTimeOut(true);
+
 
     //Executor不会停止 需要shutdown来显式停止等待当前任务完成  shutdownNow会终止所有正在执行的任务并立即关闭
     pool.shutdown();
@@ -66,7 +71,7 @@ public class Thread7 {
     ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
     //定期执行 Runnable 时间 单位
 
-    //后续的任务在period后执行  不管上个任务有没有完成
+    //后续的任务在period后执行  等待上个任务执行完毕
     scheduledExecutorService.scheduleAtFixedRate(() -> System.out.println("hello"), 0, 2, TimeUnit.SECONDS);
     //等待上个任务结束后再执行 执行延迟2
     scheduledExecutorService.scheduleWithFixedDelay(() -> System.out.println("hello"), 0, 2, TimeUnit.SECONDS);

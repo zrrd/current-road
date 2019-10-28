@@ -70,12 +70,14 @@ public class Thread18 {
 
     @Override
     public long getDelay(TimeUnit unit) {
+      // 任务开始时间与当前时间的插值
       long l = startTime.getTime() - new Date().getTime();
       return unit.toMillis(l);
     }
 
     @Override
     public int compareTo(Delayed o) {
+      // 用于实现优先级队列的存放 ，
       if (this.getDelay(TimeUnit.MILLISECONDS) >= o.getDelay(TimeUnit.MILLISECONDS)) {
         return 1;
       } else {
@@ -106,6 +108,10 @@ public class Thread18 {
 
 
   public static void main(String[] args) throws InterruptedException {
-    test2();
+    Date date1 = new Date();
+    TimeUnit.SECONDS.sleep(5);
+    Date date2 = new Date();
+    System.out.println(TimeUnit.SECONDS.convert(date2.getTime() - date1.getTime(), TimeUnit.MILLISECONDS));
+    System.out.println(TimeUnit.MILLISECONDS.toSeconds(date2.getTime() - date1.getTime()));
   }
 }
