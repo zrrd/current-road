@@ -21,8 +21,11 @@ public class Thread15 {
     Runnable longRunningTask = () -> {
       boolean permit = false;
       try {
-        //获得准入许可
+        //获得准入许可 非阻塞的方式
         permit = semaphore.tryAcquire(1, TimeUnit.SECONDS);
+        //阻塞方式
+        //semaphore.acquire();
+        //permit = true;
         if (permit) {
           System.out.println("Semaphore acquired");
           TimeUnit.SECONDS.sleep(5);
@@ -37,8 +40,8 @@ public class Thread15 {
         }
       }
     };
-    IntStream.range(0, 10)
-        .forEach(i -> executor.submit(longRunningTask));
-    executor.shutdownNow();
+    IntStream.range(0, 10).forEach(i -> executor.submit(longRunningTask));
+
+    //executor.shutdownNow();
   }
 }
