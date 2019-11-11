@@ -21,10 +21,7 @@ public class Thread1 {
   private static ReentrantLock lock = new ReentrantLock();
   public static volatile int i = 0;
 
-  /**
-   * 测试
-   */
-  public static void main(String[] args) throws InterruptedException {
+  private static void lockTest() throws InterruptedException {
 
     Thread t1 = new Thread(() -> {
       System.out.println("t0 开始获取锁");
@@ -87,5 +84,54 @@ public class Thread1 {
     t2.join();
     t3.join();
     System.out.println(i);
+  }
+
+  /**
+   * 中断响应
+   */
+  private static void lockInterrupt() throws InterruptedException {
+    ReentrantLock lock = new ReentrantLock();
+    Thread thread1 = new Thread(() -> {
+      while (true) {
+        // 需要手动判断中断状态
+        if (Thread.currentThread().isInterrupted()) {
+          break;
+        }
+        System.out.println("lock in lock");
+        try {
+          lock.lock();
+        } finally {
+          lock.unlock();
+        }
+      }
+    });
+    thread1.start();
+    // 中断响应
+    thread1.interrupt();
+    thread1.join();
+
+    Thread thread2 = new Thread(() -> {
+      while (true) {
+        System.out.println("lock in lockInterruptibly");
+        try {
+          lock.lockInterruptibly();
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        } finally {
+          lock.unlock();
+        }
+      }
+    });
+    thread2.start();
+    // 中断响应
+    thread2.interrupt();
+    thread2.join();
+  }
+
+  /**
+   * 测试
+   */
+  public static void main(String[] args) throws InterruptedException {
+    lockInterrupt();
   }
 }
