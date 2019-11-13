@@ -29,3 +29,5 @@
 5. ThreadLocalRandomGo 在高并发下 使用 ThreadLocalRandom 来替代 Random 来提高性能
 6. CopyOnWriteArrayListGo 线程安全的数组列表
 7. BoundedBuffer 通过condition实现缓存数组
+8. CompletableFutureGo java1.8 新增的异步工具类 失效异步非阻塞api
+9. CompletionServiceGo 先完成的先返回值
