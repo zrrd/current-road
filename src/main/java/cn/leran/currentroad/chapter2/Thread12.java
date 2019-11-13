@@ -19,7 +19,12 @@ public class Thread12 {
   private static final int CAR_NUM = 10;
 
   /**
-   * 传入一个runnable参数,每次await后运行.
+   * <pre>
+   * 传入一个runnable参数,每次await=0后运行. 注意的是Runnable并不会另起一个线程,判断是否要另起一个线程
+   * 比如本例子中,碰碰车需要等待开完才能等待用户做,所有直接在主线程中调用
+   * 再比如有两个厨师做菜,要等两个厨师都做完菜了才能上菜,其中做菜是屏障任务,上菜是回调函数,第一轮菜做完后,不需要等上菜上完再
+   * 开始做第二轮菜,所以需要把上菜的任务放到另一个线程中去,异步话任务
+   * </pre>
    */
   private static CyclicBarrier cyclicBarrier = new CyclicBarrier(CAR_NUM, () -> {
     try {
