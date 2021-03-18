@@ -33,8 +33,10 @@ public class Test3 {
       try {
         for (int i = 0; i < 10; i++) {
           System.out.println("X");
-          first.set(false);
           condition2.signal();
+          if (i == 0) {
+            first.set(false);
+          }
           try {
             condition1.await();
           } catch (InterruptedException e) {
@@ -57,8 +59,10 @@ public class Test3 {
       try {
         for (int i = 0; i < 10; i++) {
           System.out.println("Y");
-          next.set(false);
           condition3.signal();
+          if (i == 0) {
+            next.set(false);
+          }
           try {
             condition2.await();
           } catch (InterruptedException e) {
